@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@azure/storage-queue": "^12.3.0",
+    "azure-functions-core-tools": "^2.7.3188",
     "tedious": "^11.0.3"
   },
   "devDependencies": {}
