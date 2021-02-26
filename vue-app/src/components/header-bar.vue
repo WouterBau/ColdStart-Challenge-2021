@@ -2,7 +2,7 @@
 import HeaderBarBrand from '@/components/header-bar-brand.vue';
 import AuthLogin from '@/components/auth-login.vue';
 import AuthLogout from '@/components/auth-logout.vue';
-import getAuthUserDetails from '@/functions.js';
+import getUserInfo from '@/assets/js/userinfo.js';
 
 export default {
   name: 'HeaderBar',
@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     getAuthInfo() {
-      this.isAuthenticated = getAuthUserDetails() !== null;
+      this.isAuthenticated = getUserInfo() !== null;
     },
   },
 };

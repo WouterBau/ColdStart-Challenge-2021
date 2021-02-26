@@ -1,5 +1,5 @@
 <script>
-import getAuthUserDetails from '@/functions.js';
+import getUserInfo from '@/assets/js/userinfo.js';
 
 export default {
   name: 'AuthLogout',
@@ -19,12 +19,12 @@ export default {
       window.location.href = url;
     },
     getAuthInfo() {
-      this.authInfo = getAuthUserDetails();
+      this.authInfo = getUserInfo();
     },
   },
 };
 </script>
 
 <template>
-  <div class="auth-link" @click="goAuth">Logout {{ authInfo }}</div>
+  <div class="auth-link" @click="goAuth">Logout {{ authInfo.userDetails }}</div>
 </template>
