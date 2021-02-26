@@ -12,6 +12,6 @@ export default function getAuthUserDetails() {
       return null;
     }
     const info = JSON.parse(result);
-    return info.userDetails;
+    return info.clientPrincipal.userDetails;
   });
 }
