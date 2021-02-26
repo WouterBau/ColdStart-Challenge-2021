@@ -46,7 +46,7 @@ export default {
           <router-link class="navbar-item nav-home" to="/" v-if="isAuthenticated">
             <AuthLogout />
           </router-link>
-          {{ authInfo.userDetails }}
+          {{ authInfo }}
         </div>
       </div>
     </nav>
