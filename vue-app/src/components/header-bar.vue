@@ -14,6 +14,7 @@ export default {
   data() {
     return {
       isAuthenticated: false,
+      authInfo: null,
     };
   },
   created() {
@@ -21,7 +22,10 @@ export default {
   },
   methods: {
     getAuthInfo() {
-      authInfo().then((result) => { this.isAuthenticated = result !== null; });
+      authInfo().then((result) => {
+        this.isAuthenticated = result !== null;
+        this.authInfo = result;
+      });
     },
   },
 };
@@ -46,6 +50,7 @@ export default {
           <router-link class="navbar-item nav-home" to="/" v-if="isAuthenticated">
             <AuthLogout />
           </router-link>
+          {{ authInfo }}
         </div>
       </div>
     </nav>
