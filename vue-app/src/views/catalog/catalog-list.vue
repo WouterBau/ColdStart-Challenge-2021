@@ -1,5 +1,6 @@
 <script>
 import CardContent from '@/components/card-content.vue';
+import ButtonFooter from '@/components/button-footer.vue';
 
 export default {
   name: 'CatalogList',
@@ -15,6 +16,7 @@ export default {
   },
   components: {
     CardContent,
+    ButtonFooter,
   },
   data() {
     return {
@@ -42,6 +44,9 @@ export default {
             :name="icecream.Name"
             :description="icecream.Description"
             :imageurl="icecream.ImageUrl"
+          />
+          <ButtonFooter
+           :label="icecream.Name"
           />
         </div>
       </div>
