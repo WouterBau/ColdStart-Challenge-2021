@@ -4,3 +4,13 @@ export default async function authInfo() {
   const { clientPrincipal } = payload;
   return clientPrincipal;
 }
+
+export default function getAuthUserDetails() {
+  authInfo().then((result) => {
+    if (result === null) {
+      return null;
+    }
+    const info = JSON.parse(result);
+    return info.userDetails;
+  });
+}

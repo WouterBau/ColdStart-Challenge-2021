@@ -2,7 +2,7 @@
 import HeaderBarBrand from '@/components/header-bar-brand.vue';
 import AuthLogin from '@/components/auth-login.vue';
 import AuthLogout from '@/components/auth-logout.vue';
-import authInfo from '@/functions.js';
+import getAuthUserDetails from '@/functions.js';
 
 export default {
   name: 'HeaderBar',
@@ -14,7 +14,6 @@ export default {
   data() {
     return {
       isAuthenticated: false,
-      authInfo: null,
     };
   },
   created() {
@@ -22,10 +21,7 @@ export default {
   },
   methods: {
     getAuthInfo() {
-      authInfo().then((result) => {
-        this.isAuthenticated = result !== null;
-        this.authInfo = result;
-      });
+      this.isAuthenticated = getAuthUserDetails() !== null;
     },
   },
 };
@@ -50,7 +46,7 @@ export default {
           <router-link class="navbar-item nav-home" to="/" v-if="isAuthenticated">
             <AuthLogout />
           </router-link>
-          {{ authInfo }}
+          {{ authInfo.userDetails }}
         </div>
       </div>
     </nav>
