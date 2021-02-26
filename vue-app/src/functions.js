@@ -1,3 +1,11 @@
+
+export async function authInfo() {
+  const response = await fetch('/.auth/me');
+  const payload = await response.json();
+  const { clientPrincipal } = payload;
+  return clientPrincipal;
+}
+
 export default function getAuthUserDetails() {
   authInfo().then((result) => {
     if (result === null) {
@@ -6,11 +14,4 @@ export default function getAuthUserDetails() {
     const info = JSON.parse(result);
     return info.userDetails;
   });
-}
-
-export async function authInfo() {
-  const response = await fetch('/.auth/me');
-  const payload = await response.json();
-  const { clientPrincipal } = payload;
-  return clientPrincipal;
 }
