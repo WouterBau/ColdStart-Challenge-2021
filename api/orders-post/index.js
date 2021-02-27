@@ -18,7 +18,7 @@ module.exports = async function (context, req) {
   // Create JSON message
   const preOrderMessage = {
     Id: uuidv1(),
-    User: user.userDetails,
+    User: user,
     Date: (new Date()).toISOString(),
     IceCreamId: iceCreamId,
     Status: 'New',
