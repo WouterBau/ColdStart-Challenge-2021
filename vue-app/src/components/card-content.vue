@@ -65,7 +65,7 @@ export default {
       :label="buttonLabel"
       :iconClasses="'shopping-cart'"
       @clicked="postPreOrder"
-      v-if="isAuthenticated"
+      v-if="showOrderButton"
     />
 
   </div>
