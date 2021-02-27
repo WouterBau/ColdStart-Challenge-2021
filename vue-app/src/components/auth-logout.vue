@@ -1,5 +1,5 @@
 <script>
-import getUserInfo from '@/assets/js/userinfo.js';
+import getUserInfo from '@/assets/js/userInfo';
 
 export default {
   name: 'AuthLogout',
@@ -8,8 +8,8 @@ export default {
       authInfo: null,
     };
   },
-  created() {
-    this.getAuthInfo();
+  async created() {
+    await this.getAuthInfo();
   },
   methods: {
     goAuth() {
@@ -18,8 +18,8 @@ export default {
       const url = `/.auth/logout?${redirect}`;
       window.location.href = url;
     },
-    getAuthInfo() {
-      this.authInfo = getUserInfo();
+    async getAuthInfo() {
+      this.authInfo = await getUserInfo();
     },
   },
 };
