@@ -39,11 +39,11 @@ export default {
     async postPreOrder() {
       try {
         console.log(this.id);
-      const response = await axios.post(`${API}/orders`, { id: this.id });
+        const response = await axios.post(`${API}/orders`, { id: this.id });
         console.log(response);
-      if (response.status === 201) {
+        if (response.status === 201) {
           this.buttonLabel = `Succesful Pre-order with ID: ${response.data}`;
-      } else {
+        } else {
           this.buttonLabel = `Unexpected status: ${response.status}`;
         }
       } catch (err) {
