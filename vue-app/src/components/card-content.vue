@@ -1,6 +1,11 @@
 <script>
+import ButtonFooter from '@/components/button-footer.vue';
+
 export default {
   name: 'CardContent',
+  components: {
+    ButtonFooter,
+  },
   props: {
     id: {
       type: String,
@@ -17,6 +22,10 @@ export default {
     imageurl: {
       type: String,
       default: () => '',
+    },
+    showOrderButton: {
+      type: Boolean,
+      default: () => false,
     },
   },
   methods: {
@@ -36,5 +45,11 @@ export default {
       </div>
       <p class="description">{{ description }}</p>
     </div>
+
+    <ButtonFooter
+      :label="'Pre-order'"
+      :iconClasses="'shopping-cart'"
+    />
+
   </div>
 </template>

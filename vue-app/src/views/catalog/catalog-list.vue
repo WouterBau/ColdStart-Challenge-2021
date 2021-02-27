@@ -1,6 +1,6 @@
 <script>
 import CardContent from '@/components/card-content.vue';
-import ButtonFooter from '@/components/button-footer.vue';
+import getUserInfo from '@/assets/js/userInfo';
 
 export default {
   name: 'CatalogList',
@@ -16,13 +16,20 @@ export default {
   },
   components: {
     CardContent,
-    ButtonFooter,
   },
   data() {
     return {
+      isAuthenticated: false,
     };
   },
+  async created() {
+    await this.getAuthInfo();
+  },
   methods: {
+    async getAuthInfo() {
+      const userInfo = await getUserInfo();
+      this.isAuthenticated = !(userInfo === undefined || userInfo === null);
+    },
   },
 };
 </script>
@@ -44,9 +51,7 @@ export default {
             :name="icecream.Name"
             :description="icecream.Description"
             :imageurl="icecream.ImageUrl"
-          />
-          <ButtonFooter
-           :label="icecream.Name"
+            :showOrderButton="isAuthenticated"
           />
         </div>
       </div>
