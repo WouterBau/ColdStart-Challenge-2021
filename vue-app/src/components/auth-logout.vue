@@ -5,7 +5,7 @@ export default {
   name: 'AuthLogout',
   data() {
     return {
-      authInfo: null,
+      userDetails: '',
     };
   },
   async created() {
@@ -19,12 +19,17 @@ export default {
       window.location.href = url;
     },
     async getAuthInfo() {
-      this.authInfo = await getUserInfo();
+      const authInfo = await getUserInfo();
+      if (!(authInfo === undefined || authInfo === null)) {
+        this.userDetails = authInfo.userDetails;
+      } else {
+        this.userDetails = '';
+      }
     },
   },
 };
 </script>
 
 <template>
-  <div class="auth-link" @click="goAuth">Logout {{ authInfo.userDetails }}</div>
+  <div class="auth-link" @click="goAuth">Logout {{ userDetails }}</div>
 </template>
