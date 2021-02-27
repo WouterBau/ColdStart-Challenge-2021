@@ -1,7 +1,7 @@
 const { getUser } = require('../shared/user-utils');
 const config = require('../shared/config');
 const { QueueClient } = require("@azure/storage-queue");
-const uuidv1 = require("uuid/v1");
+const { v4: uuidv4 } = require('uuid');
 const data = require('../shared/catalog-data');
 
 module.exports = async function (context, req) {
@@ -39,7 +39,7 @@ module.exports = async function (context, req) {
 
   // Create JSON message
   const preOrderMessage = {
-    Id: uuidv1(),
+    Id: uuidv4(),
     User: userDetails,
     Date: (new Date()).toISOString(),
     IceCreamId: iceCreamId,
