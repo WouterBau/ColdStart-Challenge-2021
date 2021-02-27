@@ -10,8 +10,8 @@ export default {
   },
   props: {
     id: {
-      type: String,
-      default: () => '',
+      type: Number,
+      default: () => 0,
     },
     name: {
       type: String,
@@ -37,11 +37,18 @@ export default {
   },
   methods: {
     async postPreOrder() {
+      try {
+        console.log(this.id);
       const response = await axios.post(`${API}/orders`, { id: this.id });
+        console.log(response);
       if (response.status === 201) {
-        this.buttonLabel = 'Succesful Pre-order';
+          this.buttonLabel = `Succesful Pre-order with ID: ${response.data}`;
       } else {
-        this.buttonLabel = 'Failed Pre-order';
+          this.buttonLabel = `Unexpected status: ${response.status}`;
+        }
+      } catch (err) {
+        console.log(err);
+        this.buttonLabel = `Failed status: ${err.response.status}`;
       }
     },
   },
