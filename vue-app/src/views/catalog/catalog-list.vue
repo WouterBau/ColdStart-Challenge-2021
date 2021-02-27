@@ -52,6 +52,7 @@ export default {
             :description="icecream.Description"
             :imageurl="icecream.ImageUrl"
             :showOrderButton="isAuthenticated"
+            :id="icecream.Id"
           />
         </div>
       </div>
