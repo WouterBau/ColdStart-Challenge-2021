@@ -21,7 +21,8 @@ export default {
   },
   methods: {
     async getAuthInfo() {
-      this.isAuthenticated = await getUserInfo() !== undefined;
+      const userInfo = await getUserInfo();
+      this.isAuthenticated = !(userInfo === undefined || userInfo === null);
     },
   },
 };
