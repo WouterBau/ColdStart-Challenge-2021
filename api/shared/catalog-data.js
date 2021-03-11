@@ -1,11 +1,11 @@
-const config = require('../shared/dbconfig');
-const { Connection, Request } = require("tedious");
+const connect = require('../shared/tedious-connection');
+const { Request } = require("tedious");
 
 const getCatalog = () => new Promise((resolve, reject) => {
   
   var catalog = [];
 
-  const request = new Request('SELECT * FROM [dbo].[Icecreams];', (err, rowCount) => {
+  const request = new Request('SELECT * FROM [dbo].[Icecreams];', (err) => {
     if (err) {
       console.log("sql err");
       console.error(err.message);
@@ -22,7 +22,7 @@ const getCatalog = () => new Promise((resolve, reject) => {
     catalog.push(row);
   });
 
-  const connection = new Connection(config.config);
+  const connection = connect.getConnection();
   connection.on('connect', err => {
     if (err) {
       console.log("connect err");
