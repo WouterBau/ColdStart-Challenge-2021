@@ -1,0 +1,15 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "value": "WouterBau-ColdStart-Challenge-2021-DataFactory"
+        },
+        "wouterbaucsc2021_connectionString": {
+            "value": ""
+        },
+        "wouterbau_coldstart_challenge_2021_connectionString": {
+            "value": ""
+        }
+    }
+}

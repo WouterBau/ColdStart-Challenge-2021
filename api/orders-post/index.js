@@ -1,60 +1,36 @@
 const { getUser } = require('../shared/user-utils');
-const config = require('../shared/config');
-const { QueueClient } = require("@azure/storage-queue");
-const { v4: uuidv4 } = require('uuid');
-const data = require('../shared/catalog-data');
+const addOrder = require('../shared/add-order');
 
-module.exports = async function (context, req) {
+module.exports = function (context, req) {
 
   // Get the user details from the request
   var user = getUser(req);
   if(user === null || user === undefined){
-    context.res.status(401);
+    context.res.status = 401;
+    context.done();
     return;
     // Switch during local tests
     //user = { userDetails: "John Doe" };
   }
+
   const userDetails = user.userDetails;
-
-  // Get the pre-order from the request
   const iceCreamId = req.body.id;
-  if(iceCreamId === null || iceCreamId === undefined) {
-    context.res.status(404);
-    return;
-  }
+  const fullAddress = '1 Microsoft Way, Redmond, WA 98052, USA';
 
-  //Check if received ID exists
-  var found = false;
-  const items = await data.getCatalog();
-  for (var i = 0; i < items.length; i++) {
-    if (items[i].Id == iceCreamId) {
-      found = true;
-      break;
+  addOrder.addOrder(userDetails, iceCreamId, fullAddress)
+  .then(id => {
+    context.res.body = id;
+    context.res.status = 201;
+    context.done();
+  })
+  .catch(err => {
+    context.log.error(err);
+    if(err === 'not found') {
+      context.res.status = 404;
+    } else {
+      context.res.status = 500;
     }
-  }
-  if (!found) {
-    context.res.status(404);
-    return;
-  }
+    context.done();
+  });
 
-  // Create JSON message
-  const preOrderMessage = {
-    Id: uuidv4(),
-    User: userDetails,
-    Date: (new Date()).toISOString(),
-    IceCreamId: iceCreamId,
-    Status: 'New',
-    DriverId: null,
-    FullAddress: "1 Microsoft Way, Redmond, WA 98052, USA",
-    LastPosition: null
-  };
-  const preOderMessageString = JSON.stringify(preOrderMessage);
-
-  // add the pre-order JSON document in a queue
-  const queueClient = new QueueClient(config.config.azure_storage_connectionstring, config.config.azure_storage_queue_preorder);
-  await queueClient.createIfNotExists();
-  const queueResponse = await queueClient.sendMessage(preOderMessageString);
-  
-  // Send response with creation ID
-  context.res.status(201).send(queueResponse.messageId);
 };
