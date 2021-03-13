@@ -7,6 +7,7 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
+    "@azure/cognitiveservices-personalizer": "^2.0.1",
     "@azure/storage-queue": "^12.3.0",
     "tedious": "^11.0.3",
     "uuid": "^8.3.2"
