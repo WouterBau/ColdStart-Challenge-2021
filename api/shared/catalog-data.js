@@ -1,7 +1,11 @@
 const connect = require('../shared/tedious-connection');
 const { Request } = require("tedious");
 
-const getCatalog = () => new Promise((resolve, reject) => {
+async function getCatalog() {
+  return queryCatalog();
+}
+
+const queryCatalog = () => new Promise((resolve, reject) => {
   
   var catalog = [];
 

@@ -1,7 +1,7 @@
 const { getUser } = require('../shared/user-utils');
 const addOrder = require('../shared/add-order');
 
-module.exports = function (context, req) {
+module.exports = async function (context, req) {
 
   // Get the user details from the request
   var user = getUser(req);
@@ -17,20 +17,15 @@ module.exports = function (context, req) {
   const iceCreamId = req.body.id;
   const fullAddress = '1 Microsoft Way, Redmond, WA 98052, USA';
 
-  addOrder.addOrder(userDetails, iceCreamId, fullAddress)
-  .then(id => {
-    context.res.body = id;
-    context.res.status = 201;
-    context.done();
-  })
-  .catch(err => {
-    context.log.error(err);
-    if(err === 'not found') {
-      context.res.status = 404;
+  try{
+    const id = await addOrder.addOrder(userDetails, iceCreamId, fullAddress);
+    context.res.status(201).send(id);
+  } catch (error) {
+    if (err === 'not found') {      
+      context.res.status(404).send(error);
     } else {
-      context.res.status = 500;
+      context.res.status(500).send(error);
     }
-    context.done();
-  });
+  }
 
 };
