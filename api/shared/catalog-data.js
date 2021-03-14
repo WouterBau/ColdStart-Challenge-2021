@@ -10,6 +10,7 @@ const queryCatalog = () => new Promise((resolve, reject) => {
   var catalog = [];
 
   const request = new Request('SELECT * FROM [dbo].[Icecreams];', (err) => {
+    connection.close();
     if (err) {
       console.log("sql err");
       console.error(err.message);

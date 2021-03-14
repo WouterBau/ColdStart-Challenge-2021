@@ -12,6 +12,7 @@ const queryAddOrder = (user, icecreamId, fullAddress) => new Promise((resolve, r
   var insertedId = null;
   const insertOrderSql = 'INSERT INTO [dbo].[Orders] ([User], IcecreamId, FullAddress) OUTPUT Inserted.Id VALUES (@user, @icecreamId, @fullAddress)';
   const insertOrderRequest = new Request(insertOrderSql, (err) => {
+    connection.close();
     if (err) {
         console.log("insert sql err");
         console.error(err.message);
