@@ -1,15 +1,16 @@
 const { getUser } = require('../shared/user-utils');
 const addOrder = require('../shared/add-order');
+const data = require('../shared/recommendations');
 
 module.exports = async function (context, req) {
 
   // Get the user details from the request
   var user = getUser(req);
   if(user === null || user === undefined){
-    context.res.status = 401;
-    context.done();
+    context.res.status(401);
     return;
     // Switch during local tests
+    //user = { userDetails: "John Doe" };
   }
 
   const eventId = req.body.eventId;
