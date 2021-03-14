@@ -1,4 +1,4 @@
-const uuidv1 = require('uuid/v1');
+const { v4: uuidv4 } = require('uuid');
 const config = require('../shared/config');
 const data = require('../shared/catalog-data');
 const CognitiveServicesCredentials = require('@azure/ms-rest-azure-js').CognitiveServicesCredentials;
@@ -6,7 +6,7 @@ const Personalizer = require('@azure/cognitiveservices-personalizer');
 
 async function rankItemWithCatalog(catalog, contextFeatures) {
     const actions = getActionList(catalog);
-    const eventId = uuidv1();
+    const eventId = uuidv4();
     const rankRequest = {
         eventId: eventId,
         contextFeatures: contextFeatures,
