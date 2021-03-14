@@ -2,12 +2,17 @@
 const connect = require('../shared/tedious-connection');
 const { Request, TYPES } = require("tedious");
 
-const addOrder = (user, icecreamId, fullAddress) => new Promise((resolve, reject) => {
+async function addOrder(user, icecreamId, fullAddress){
+  return queryAddOrder(user, icecreamId, fullAddress);
+}
+
+const queryAddOrder = (user, icecreamId, fullAddress) => new Promise((resolve, reject) => {
   
   //Insert SQL and Request
   var insertedId = null;
   const insertOrderSql = 'INSERT INTO [dbo].[Orders] ([User], IcecreamId, FullAddress) OUTPUT Inserted.Id VALUES (@user, @icecreamId, @fullAddress)';
   const insertOrderRequest = new Request(insertOrderSql, (err) => {
+    connection.close();
     if (err) {
         console.log("insert sql err");
         console.error(err.message);
