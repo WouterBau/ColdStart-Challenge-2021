@@ -3,6 +3,7 @@ const { getUser } = require('../shared/user-utils');
 const platform = require('platform');
 
 module.exports = async function (context, req) {
+    const platforminfo = platform.parse(req.headers['user-agent']);
     const user = getUser(req);
     const userLoggedIn = user === null || user === undefined;
 
@@ -14,13 +15,12 @@ module.exports = async function (context, req) {
         currentHour > 17  ? 'evening' : 'night';
 
     try {
-        const contextFeatures = {
-            dayOfWeek: currentDate.getDay(),
-            timeOfDay: timeOfDay,
-            userLoggedIn: userLoggedIn,
-            browser: platform.name
-        };
-        console.log(contextFeatures);
+        const contextFeatures = [
+            {dayOfWeek: currentDate.getDay()},
+            {timeOfDay: timeOfDay},
+            {userLoggedIn: userLoggedIn},
+            {browser: platforminfo.name}
+        ];
         const recommendations = await data.rankItem(contextFeatures);
         context.res.status(200).send(recommendations);
     } catch (error) {
