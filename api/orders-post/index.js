@@ -10,7 +10,11 @@ module.exports = async function (context, req) {
     context.done();
     return;
     // Switch during local tests
-    //user = { userDetails: "John Doe" };
+  }
+
+  const eventId = req.body.eventId;
+  if(eventId !== undefined && eventId.length > 0) {
+    await data.rewardItem(eventId, 1);
   }
 
   const userDetails = user.userDetails;

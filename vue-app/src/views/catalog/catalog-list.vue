@@ -42,6 +42,7 @@ export default {
             :imageurl="icecream.ImageUrl"
             :showOrderButton="isAuthenticated"
             :id="icecream.Id"
+            :eventId="icecream.eventId"
           />
         </div>
       </div>

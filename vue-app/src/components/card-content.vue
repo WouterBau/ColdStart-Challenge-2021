@@ -29,6 +29,10 @@ export default {
       type: Boolean,
       default: () => false,
     },
+    eventId: {
+      type: String,
+      default: () => '',
+    },
   },
   data() {
     return {
@@ -38,7 +42,7 @@ export default {
   methods: {
     async postPreOrder() {
       try {
-        const response = await axios.post(`${API}/orders`, { id: this.id });
+        const response = await axios.post(`${API}/orders`, { id: this.id, eventId: this.eventId });
         if (response.status === 201) {
           this.buttonLabel = `Succesful Pre-order with ID: ${response.data}`;
         } else {
