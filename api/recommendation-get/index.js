@@ -3,6 +3,11 @@ const { getUser } = require('../shared/user-utils');
 const platform = require('platform');
 
 module.exports = async function (context, req) {
+    const eventId = req.query.eventid;
+    if(eventId !== undefined) {
+        await data.rewardItem(eventId, 0);
+    }
+
     const platforminfo = platform.parse(req.headers['user-agent']);
     const user = getUser(req);
     const userLoggedIn = user === null || user === undefined;

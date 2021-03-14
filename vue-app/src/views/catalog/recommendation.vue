@@ -31,13 +31,18 @@ export default {
   },
   methods: {
     async getRecommendation() {
+      let path = `${API}/recommendation`;
+      if (this.eventId !== undefined) {
+        path += `?eventid=${this.eventId}`;
+      }
       this.errorMessage = undefined;
       this.eventId = undefined;
       this.recommendations = undefined;
       try {
-        const response = await axios.get(`${API}/recommendation`);
+        const response = await axios.get(path);
         if (response.status === 200) {
           this.recommendations = parseList(response);
+          this.eventId = this.recommendations[0].eventId;
         }
       } catch (error) {
         this.errorMessage = 'Unauthorized';
