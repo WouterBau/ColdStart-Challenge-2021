@@ -28,7 +28,8 @@ export default {
 
 <template>
   <div class="content-title-group">
-    <router-link :to="routePath">
+    <h2 class="title" v-if="routePath === ''">{{ title }}</h2>
+    <router-link :to="routePath" v-else>
       <h2 class="title">{{ title }}</h2>
     </router-link>
     <button

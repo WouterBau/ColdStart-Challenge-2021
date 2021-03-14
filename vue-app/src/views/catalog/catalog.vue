@@ -1,7 +1,9 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import ListHeader from '@/components/list-header.vue';
+import getUserInfo from '@/assets/js/userInfo';
 import CatalogList from './catalog-list.vue';
+import Recommendations from './recommendation.vue';
 
 export default {
   name: 'Catalog',
@@ -11,13 +13,16 @@ export default {
       message: '',
       routePath: '/catalog',
       title: 'Our Ice Creams',
+      isAuthenticated: false,
     };
   },
   components: {
     ListHeader,
     CatalogList,
+    Recommendations,
   },
   async created() {
+    await this.getAuthInfo();
     await this.getCatalog();
   },
   computed: {
@@ -33,12 +38,17 @@ export default {
         this.errorMessage = 'Unauthorized';
       }
     },
+    async getAuthInfo() {
+      const userInfo = await getUserInfo();
+      this.isAuthenticated = !(userInfo === undefined || userInfo === null);
+    },
   },
 };
 </script>
 
 <template>
   <div class="content-container">
+    <Recommendations :isAuthenticated="isAuthenticated"></Recommendations>
     <ListHeader :title="title" @refresh="getCatalog" :routePath="routePath">
     </ListHeader>
     <div class="columns is-multiline is-variable">
@@ -46,6 +56,7 @@ export default {
         <CatalogList
           :icecreams="catalog"
           :errorMessage="errorMessage"
+          :isAuthenticated="isAuthenticated"
         ></CatalogList>
       </div>
     </div>

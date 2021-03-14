@@ -1,6 +1,5 @@
 <script>
 import CardContent from '@/components/card-content.vue';
-import getUserInfo from '@/assets/js/userInfo';
 
 export default {
   name: 'CatalogList',
@@ -13,23 +12,13 @@ export default {
       type: String,
       default: () => '',
     },
+    isAuthenticated: {
+      type: Boolean,
+      default: () => false,
+    },
   },
   components: {
     CardContent,
-  },
-  data() {
-    return {
-      isAuthenticated: false,
-    };
-  },
-  async created() {
-    await this.getAuthInfo();
-  },
-  methods: {
-    async getAuthInfo() {
-      const userInfo = await getUserInfo();
-      this.isAuthenticated = !(userInfo === undefined || userInfo === null);
-    },
   },
 };
 </script>
